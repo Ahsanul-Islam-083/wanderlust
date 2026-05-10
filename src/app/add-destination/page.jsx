@@ -1,14 +1,40 @@
 "use client"
 import { Button, FieldError, Input, Label, ListBox, TextArea, TextField, Select, Card } from '@heroui/react';
 import React from 'react';
+import { toast } from 'react-toastify';
 
 const DestinationPage = () => {
+
+    const onSubmit = async(e) => {
+        e.preventDefault();
+        const form = e.currentTarget;
+        const formData = new FormData(form);
+        const destination = Object.fromEntries(formData.entries());
+        console.log(destination);
+       const res = await fetch('http://localhost:5000/destination',{
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(destination)
+        })
+        const data = await res.json();
+        console.log('res.ok:', res.ok, 'status:', res.status);
+        if(res.ok){
+            toast.success('Destination added successfully!');
+            form.reset();
+        } else {
+            toast.error('Failed to add destination.');
+        }
+        console.log(data);
+    };
+    
     return (
         <div className='container mx-auto mt-10'>
-            <h2 className='text-2xl md:text-5xl'>Add New Travel Package</h2>
-            <Card className='shadow m-8'>
-                <form
-                    className="p-10 space-y-8"
+            <h2 className='text-2xl md:text-5xl font-bold'>Add New Travel Package</h2>
+            <Card className='shadow mt-4 md:m-8'>
+                <form onSubmit={onSubmit}
+                    className="md:p-10 space-y-8"
                 >
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         {/* Destination Name */}
@@ -132,7 +158,7 @@ const DestinationPage = () => {
                     <Button
                         type="submit"
                         variant="outline"
-                        className=" rounded-none w-full bg-cyan-500 text-white"
+                        className=" rounded-xl w-full bg-cyan-500 text-white"
                     >
                         Add Travel Destination
                     </Button>
