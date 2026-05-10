@@ -1,7 +1,9 @@
-import React from 'react';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { LuMapPin, LuCalendarDays, LuArrowLeft, LuStar, LuCheck, LuTag } from 'react-icons/lu';
+import { Button } from '@heroui/react';
+import { EditModal } from '@/components/EditModal';
 
 const DestinationDetailsPage = async ({ params }) => {
     const { id } = await params;
@@ -40,12 +42,7 @@ const DestinationDetailsPage = async ({ params }) => {
                     Back to Destinations
                 </Link>
                 <div className="flex items-center gap-2">
-                    <Link
-                        href={`/destinations/${id}/edit`}
-                        className="flex items-center gap-1.5 px-4 py-1.5 border border-gray-300 rounded-md text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-                    >
-                        ✏️ Edit
-                    </Link>
+                    <EditModal destination={destination} />
                     <button className="flex items-center gap-1.5 px-4 py-1.5 border border-red-300 rounded-md text-sm text-red-500 hover:bg-red-50 transition-colors">
                         🗑️ Cancel
                     </button>
