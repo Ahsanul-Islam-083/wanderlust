@@ -1,6 +1,8 @@
 "use client";
 
 import { Button, Input, Label, Modal, Surface, TextField, Select, FieldError, ListBox, TextArea } from "@heroui/react";
+import { redirect } from "next/navigation";
+import { toast } from "react-toastify";
 
 export function EditModal({destination}) {
 
@@ -13,6 +15,7 @@ export function EditModal({destination}) {
         departureDate,
         imageUrl,
         description,
+        _id: id
     } = destination;
 
     const onSubmit = async (e) => {
@@ -21,22 +24,23 @@ export function EditModal({destination}) {
         const formData = new FormData(form);
         const destination = Object.fromEntries(formData.entries());
         console.log(destination);
-        // const res = await fetch('http://localhost:5000/destination', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(destination)
-        // })
+        const res = await fetch(`http://localhost:5000/destination/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(destination)
+        })
         const data = await res.json();
         console.log('res.ok:', res.ok, 'status:', res.status);
         if (res.ok) {
             toast.success('Destination details updated successfully!');
             form.reset();
+            redirect(`/destinations/${id}`);
         } else {
             toast.error('Failed to update destination details.');
         }
-        // console.log(data);
+        console.log(data);
     };
 
 
