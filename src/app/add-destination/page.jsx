@@ -31,7 +31,7 @@ const DestinationPage = () => {
     
     return (
         <div className='container mx-auto mt-10'>
-            <h2 className='text-2xl md:text-5xl font-bold'>Add New Travel Package</h2>
+            <h2 className='text-2xl md:text-5xl font-bold text-center md:text-right'>Add New Travel Package</h2>
             <Card className='shadow mt-4 md:m-8'>
                 <form onSubmit={onSubmit}
                     className="md:p-10 space-y-8"
