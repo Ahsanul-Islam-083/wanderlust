@@ -1,21 +1,16 @@
 "use client";
 
-import { AlertDialog, Button } from "@heroui/react";
+import { cancelBooking } from "@/lib/bookings/actions";
+import { AlertDialog, Button } from "@heroui/react"
+import { useRouter } from "next/navigation";
 import { MdDelete } from "react-icons/md";
 
-export function BookingCancelAlert({bookingId}) {
+export function BookingCancelAlert({ bookingId }) {
+    const router = useRouter();
 
-    const handleCancelBooking =async()=>{
-        const res = await fetch(`http://localhost:5000/booking/${bookingId}`,{
-            method: 'DELETE',
-            headers:{
-                'content-type': 'application/json'
-            }
-        })
-        const data = await res.json();
-        console.log(data);
-        
-    }
+    const handleCancelBooking = async () => {
+            await cancelBooking(bookingId);
+    };
 
     return (
         <AlertDialog>
