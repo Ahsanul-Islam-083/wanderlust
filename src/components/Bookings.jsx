@@ -3,6 +3,7 @@ import { Button, Card } from "@heroui/react";
 import { LuCalendarDays, LuMapPin } from "react-icons/lu";
 import { MdDelete } from "react-icons/md";
 import { LuEye } from "react-icons/lu";
+import { BookingCancelAlert } from "./BookingCancelAlert";
 
 
 const Bookings = ({ booking }) => {
@@ -10,7 +11,7 @@ const Bookings = ({ booking }) => {
         destinationName,
         imageUrl,
         departureDate,
-        bookingId,
+        _id:bookingId,
         price,
     } = booking;
 
@@ -23,7 +24,7 @@ const Bookings = ({ booking }) => {
     });
 
     return (
-        <Card className="flex flex-row items-center justify-between gap-4 p-3 border border-gray-200 rounded-xl shadow-sm">
+        <Card className="flex sm:flex-row items-center justify-between gap-4 m-3 sm:m-0 p-3 border border-gray-200 rounded-xl shadow-sm lg:min-w-3xl">
 
             {/* Image */}
             <div className="relative w-50 h-40 rounded-lg overflow-hidden shrink-0">
@@ -50,7 +51,7 @@ const Bookings = ({ booking }) => {
                     </span>
                     <span className="flex items-center gap-1.5">
                         <LuMapPin size={13} className="shrink-0" />
-                        Booking ID: {bookingId}
+                        Booking ID: {booking._id}
                     </span>
                 </div>
 
@@ -60,14 +61,7 @@ const Bookings = ({ booking }) => {
 
             {/* Actions */}
             <div className="flex items-center gap-2 shrink-0 pr-2">
-                <Button
-                    variant="bordered"
-                    size="sm"
-                    className="border border-red-400 text-red-400 hover:bg-red-50 rounded-md"
-                >
-                    <MdDelete size={15} />
-                    Cancel
-                </Button>
+                <BookingCancelAlert bookingId={bookingId} />
                 <Button
                     size="sm"
                     className="bg-cyan-500 text-white rounded-md"
