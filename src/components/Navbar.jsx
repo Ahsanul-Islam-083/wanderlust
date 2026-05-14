@@ -7,9 +7,22 @@ import React, { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { IoClose } from 'react-icons/io5';
-import { FaUser, FaSignInAlt, FaUserPlus } from 'react-icons/fa';
+import { FaUser, FaSignInAlt, FaUserPlus, FaSignOutAlt } from 'react-icons/fa';
+import { authClient } from '@/lib/auth-client';
+import { Avatar, Button } from '@heroui/react';
 
 const Navbar = () => {
+
+    const {
+        data: session
+    } = authClient.useSession()
+
+    const user = session?.user
+
+    const handleSignout = async () => {
+        await authClient.signOut();
+    }
+
     const [menuOpen, setMenuOpen] = useState(false);
     const pathname = usePathname();
 
@@ -31,31 +44,29 @@ const Navbar = () => {
     const closeMenu = () => setMenuOpen(false);
 
     const leftLinks = [
-        { href: '/', label: 'Home',},
+        { href: '/', label: 'Home', },
         { href: '/destinations', label: 'Destinations', },
-        { href: '/my-bookings', label: 'My Bookings',  },
-        { href: '/add-destination', label: 'Add Destination',  },
+        { href: '/my-bookings', label: 'My Bookings', },
+        { href: '/add-destination', label: 'Add Destination', },
     ];
 
     const rightLinks = [
         { href: '/profile', label: 'Profile', },
-        { href: '/login', label: 'Login',},
+        { href: '/login', label: 'Login', },
         { href: '/signup', label: 'Sign Up', },
     ];
 
     // Shared class builders
     const desktopLinkClass = (href) =>
-        `flex items-center gap-2 px-3 py-2 rounded-lg font-medium text-sm transition-all duration-150 whitespace-nowrap ${
-            isActive(href)
-                ? 'text-teal-600 bg-teal-50 font-semibold'
-                : 'text-gray-600 hover:text-teal-600 hover:bg-teal-50'
+        `flex items-center gap-2 px-3 py-2 rounded-lg font-medium text-sm transition-all duration-150 whitespace-nowrap ${isActive(href)
+            ? 'text-teal-600 bg-teal-50 font-semibold'
+            : 'text-gray-600 hover:text-teal-600 hover:bg-teal-50'
         }`;
 
     const drawerLinkClass = (href) =>
-        `flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm transition-all duration-150 ${
-            isActive(href)
-                ? 'text-teal-600 bg-teal-50 font-semibold border-l-4 border-teal-500'
-                : 'text-gray-700 hover:text-teal-600 hover:bg-teal-50'
+        `flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm transition-all duration-150 ${isActive(href)
+            ? 'text-teal-600 bg-teal-50 font-semibold border-l-4 border-teal-500'
+            : 'text-gray-700 hover:text-teal-600 hover:bg-teal-50'
         }`;
 
     const drawerIconClass = (href) =>
@@ -107,42 +118,62 @@ const Navbar = () => {
                                 Profile
                             </Link>
                         </li>
-                        <li>
-                            <Link href="/login" className={desktopLinkClass('/login')}>
-                                <FaSignInAlt className="shrink-0" />
-                                Login
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                href="/signup"
-                                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-150 whitespace-nowrap shadow-sm ${
-                                    isActive('/signup')
+                        {user ? <>
+                            <li>
+                                <Avatar>
+                                    <Avatar.Image alt={user?.name} src={user?.image} />
+                                    <Avatar.Fallback>{user?.name.charAt(0)}</Avatar.Fallback>
+                                </Avatar>
+                            </li>
+                            <li>
+                                <Button
+                                    onClick={handleSignout}
+                                    variant="danger-soft"
+                                    className={'rounded-md'}
+                                >
+                                    <FaSignOutAlt className="rotate-180" size={15} />
+                                    Logout
+                                </Button>
+
+                            </li>
+                        </> : <>
+                            <li>
+                                <Link href="/login" className={desktopLinkClass('/login')}>
+                                    <FaSignInAlt className="shrink-0" />
+                                    Login
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    href="/signup"
+                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-150 whitespace-nowrap shadow-sm ${isActive('/signup')
                                         ? 'bg-teal-700 text-white ring-2 ring-teal-400 ring-offset-1'
                                         : 'bg-teal-500 hover:bg-teal-600 text-white'
-                                }`}
-                            >
-                                <FaUserPlus className="shrink-0" />
-                                Sign Up
-                            </Link>
-                        </li>
+                                        }`}
+                                >
+                                    <FaUserPlus className="shrink-0" />
+                                    Sign Up
+                                </Link>
+                            </li>
+                        </>}
                     </ul>
                 </div>
-            </nav>
+            </nav >
 
             {/* Overlay */}
-            {menuOpen && (
-                <div
-                    className="lg:hidden fixed inset-0 bg-black/40 z-40 backdrop-blur-sm"
-                    onClick={closeMenu}
-                />
-            )}
+            {
+                menuOpen && (
+                    <div
+                        className="lg:hidden fixed inset-0 bg-black/40 z-40 backdrop-blur-sm"
+                        onClick={closeMenu}
+                    />
+                )
+            }
 
             {/* Slide-in Drawer */}
             <div
-                className={`lg:hidden fixed top-0 left-0 h-full w-72 max-w-[85vw] bg-white z-50 shadow-2xl transform transition-transform duration-300 ease-in-out ${
-                    menuOpen ? 'translate-x-0' : '-translate-x-full'
-                }`}
+                className={`lg:hidden fixed top-0 left-0 h-full w-72 max-w-[85vw] bg-white z-50 shadow-2xl transform transition-transform duration-300 ease-in-out ${menuOpen ? 'translate-x-0' : '-translate-x-full'
+                    }`}
             >
                 {/* Drawer Header */}
                 <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
@@ -180,32 +211,39 @@ const Navbar = () => {
 
                         <p className="px-5 mb-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">Account</p>
                         <ul className="flex flex-col gap-1 px-3">
-                            {rightLinks.map(({ href, label, icon }) => (
-                                <li key={href}>
-                                    <Link href={href} onClick={closeMenu} className={drawerLinkClass(href)}>
-                                        <span className={drawerIconClass(href)}>{icon}</span>
-                                        {label}
-                                    </Link>
-                                </li>
-                            ))}
+                            {
+                                user ? <>
+                                    <li className='flex justify-center'>
+                                        <Avatar>
+                                            <Avatar.Image alt={user?.name} src={user?.image} />
+                                            <Avatar.Fallback>{user?.name.charAt(0)}</Avatar.Fallback>
+                                        </Avatar>
+                                    </li>
+                                    <li>
+                                        <Button
+                                            onClick={handleSignout}
+                                            variant="danger-soft"
+                                            className={'w-full rounded-md'}
+                                        >
+                                            <FaSignOutAlt className="rotate-180" size={15} />
+                                            Logout
+                                        </Button>
+
+                                    </li>
+                                </> : <>
+                                    {rightLinks.map(({ href, label, icon }) => (
+                                        <li key={href}>
+                                            <Link href={href} onClick={closeMenu} className={drawerLinkClass(href)}>
+                                                <span className={drawerIconClass(href)}>{icon}</span>
+                                                {label}
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </>
+                            }
                         </ul>
                     </div>
 
-                    {/* CTA */}
-                    <div className="px-5 mt-4">
-                        <Link
-                            href="/signup"
-                            onClick={closeMenu}
-                            className={`flex items-center justify-center gap-2 w-full py-3 rounded-xl font-semibold text-sm transition-all duration-150 shadow-md ${
-                                isActive('/signup')
-                                    ? 'bg-teal-700 text-white ring-2 ring-teal-400'
-                                    : 'bg-teal-500 hover:bg-teal-600 text-white'
-                            }`}
-                        >
-                            <FaUserPlus />
-                            Create Free Account
-                        </Link>
-                    </div>
                 </div>
             </div>
         </>
