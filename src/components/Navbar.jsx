@@ -13,10 +13,7 @@ import { Avatar, Button } from '@heroui/react';
 
 const Navbar = () => {
 
-    const {
-        data: session
-    } = authClient.useSession()
-
+    const {data: session} = authClient.useSession()
     const user = session?.user
 
     const handleSignout = async () => {
@@ -121,7 +118,7 @@ const Navbar = () => {
                         {user ? <>
                             <li>
                                 <Avatar>
-                                    <Avatar.Image alt={user?.name} src={user?.image} />
+                                    <Avatar.Image referrerPolicy='no-referrer' alt={user?.name} src={user?.image} />
                                     <Avatar.Fallback>{user?.name.charAt(0)}</Avatar.Fallback>
                                 </Avatar>
                             </li>
@@ -215,7 +212,9 @@ const Navbar = () => {
                                 user ? <>
                                     <li className='flex justify-center'>
                                         <Avatar>
-                                            <Avatar.Image alt={user?.name} src={user?.image} />
+                                            <Avatar.Image
+                                                referrerPolicy='no-referrer'
+                                                alt={user?.name} src={user?.image} />
                                             <Avatar.Fallback>{user?.name.charAt(0)}</Avatar.Fallback>
                                         </Avatar>
                                     </li>

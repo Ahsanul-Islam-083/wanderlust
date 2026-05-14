@@ -2,10 +2,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { LuMapPin, LuCalendarDays, LuArrowLeft, LuStar, LuCheck, LuTag } from 'react-icons/lu';
-import { Button} from '@heroui/react';
+import { Button } from '@heroui/react';
 import { EditModal } from '@/components/EditModal';
 import { MdDelete } from 'react-icons/md';
 import { DeleteAlert } from '@/components/DeleteAlert';
+import BookingCard from '@/components/BookingCard';
 
 const DestinationDetailsPage = async ({ params }) => {
     const { id } = await params;
@@ -25,11 +26,6 @@ const DestinationDetailsPage = async ({ params }) => {
 
     const image = Array.isArray(imageUrl) ? imageUrl[0] : imageUrl;
 
-    const formattedDate = new Date(departureDate).toLocaleDateString('en-US', {
-        month: '2-digit',
-        day: '2-digit',
-        year: 'numeric',
-    });
 
     return (
         <div className="min-h-screen max-w-7xl mx-auto bg-white">
@@ -109,33 +105,12 @@ const DestinationDetailsPage = async ({ params }) => {
                     </div>
 
                     {/* Right Column — Booking Card */}
-                    <div className="w-full lg:w-80 shrink-0">
-                        <div className="border border-gray-200 rounded-2xl p-6 shadow-sm sticky top-20">
-
-                            <p className="text-sm text-gray-500 mb-1">Starting from</p>
-                            {price && (
-                                <>
-                                    <p className="text-4xl font-bold text-cyan-500 mb-1">
-                                        ${price.toLocaleString()}
-                                    </p>
-                                    <p className="text-sm text-gray-400 mb-5">per person</p>
-                                </>
-                            )}
-
-                            {/* Departure Date */}
-                            {departureDate && (
-                                <div className="flex items-center gap-2 border border-gray-200 rounded-lg px-4 py-2.5 mb-4 text-sm text-gray-700">
-                                    <LuCalendarDays className="shrink-0 text-gray-400" />
-                                    {formattedDate}
-                                </div>
-                            )}
-
-                            {/* Book Button */}
-                            <button className="w-full bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-3 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2">
-                                Book Now →
-                            </button>
-                        </div>
-                    </div>
+                    <BookingCard
+                    destination={destination}
+                        // price={price}
+                        // departureDate={departureDate}
+                        // formattedDate={formattedDate}
+                    />
 
                 </div>
             </div>

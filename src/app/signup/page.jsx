@@ -1,6 +1,6 @@
 "use client"
 import { useState } from "react";
-import { Button, Card, FieldError, Form, Input, Label, TextField } from "@heroui/react";
+import { Button, Card, FieldError, Form, Input, Label, Separator, TextField } from "@heroui/react";
 import { FiUser, FiMail, FiLock, FiEye, FiEyeOff, FiImage } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
@@ -32,11 +32,14 @@ const SignUpPage = () => {
             },
         }
         );
-
-
-
-
     };
+
+    const handleGoogleSignin = async () => {
+        await authClient.signIn.social({
+            provider: "google",
+        });
+    }
+
 
     const inputClass = "w-full pl-9 pr-4 py-2.5 text-sm text-gray-700 placeholder:text-gray-400 border border-gray-200 rounded-lg outline-none bg-white focus:border-[#2AACBB] transition-colors";
 
@@ -147,28 +150,29 @@ const SignUpPage = () => {
                     </Button>
 
                     <div className="flex items-center gap-3 my-1">
-                        <div className="flex-1 h-px bg-gray-200" />
+                        <Separator className="flex-1" />
                         <span className="text-xs text-gray-400">Or sign up with</span>
-                        <div className="flex-1 h-px bg-gray-200" />
+                        <Separator className="flex-1" />
                     </div>
 
-                    <Button
-                        type="button"
-                        variant="bordered"
-                        className="w-full border border-gray-200 rounded-lg py-3 text-sm text-gray-700 font-medium"
-                    >
-                        <FcGoogle size={18} />
-                        Sign Up With Google
-                    </Button>
-
-                    <p className="text-center text-sm text-gray-400 mt-1">
-                        Already have an account?{" "}
-                        <Link href="/login" className="text-[#2AACBB] font-semibold cursor-pointer hover:underline">
-                            Sign In
-                        </Link>
-                    </p>
 
                 </Form>
+                <Button
+                onClick={handleGoogleSignin}
+                    type="button"
+                    variant="bordered"
+                    className="w-full border border-gray-200 rounded-lg py-3 text-sm text-gray-700 font-medium"
+                >
+                    <FcGoogle size={18} />
+                    Sign Up With Google
+                </Button>
+
+                <p className="text-center text-sm text-gray-400 mt-1">
+                    Already have an account?{" "}
+                    <Link href="/login" className="text-[#2AACBB] font-semibold cursor-pointer hover:underline">
+                        Sign In
+                    </Link>
+                </p>
             </Card>
         </div>
     );
