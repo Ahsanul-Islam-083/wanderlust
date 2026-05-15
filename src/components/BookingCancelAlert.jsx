@@ -2,11 +2,11 @@
 
 import { cancelBooking } from "@/lib/bookings/actions";
 import { AlertDialog, Button } from "@heroui/react"
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { MdDelete } from "react-icons/md";
 
 export function BookingCancelAlert({ bookingId }) {
-    const router = useRouter();
+    // const router = useRouter();
 
     const handleCancelBooking = async () => {
             await cancelBooking(bookingId);
@@ -24,7 +24,7 @@ export function BookingCancelAlert({ bookingId }) {
             </Button>
             <AlertDialog.Backdrop>
                 <AlertDialog.Container>
-                    <AlertDialog.Dialog className="sm:max-w-[400px]">
+                    <AlertDialog.Dialog className="sm:max-w-100">
                         <AlertDialog.CloseTrigger />
                         <AlertDialog.Header>
                             <AlertDialog.Icon status="danger" />
