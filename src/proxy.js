@@ -1,6 +1,7 @@
-import { auth } from '@/lib/auth'
+
 import { headers } from 'next/headers'
 import { NextResponse } from 'next/server'
+import { auth } from './lib/auth'
  
 // This function can be marked `async` if using `await` inside
 export async function proxy(request) {
@@ -20,5 +21,5 @@ export async function proxy(request) {
  
 export const config = {
 //   matcher: '/about/:path*',
-  matcher: ['/my-bookings','/add-destination','destinations/:path*'],
+  matcher: ['/my-bookings','/add-destination','/destinations/:path*'],
 }
