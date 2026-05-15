@@ -26,7 +26,7 @@ const DestinationCard = ({ destination }) => {
                     <LuMapPin className="shrink-0" />
                     <span>{country}</span>
                 </p>
-                <div className="flex items-center justify-between gap-2">
+                <div className="flex grow items-center justify-between gap-2">
                     <h3 className="text-lg sm:text-xl font-bold text-gray-900 leading-tight">
                         {destinationName}
                     </h3>
