@@ -8,20 +8,10 @@ import toast from "react-hot-toast";
 const BookingCard = ({ destination }) => {
     const { data: session } = authClient.useSession();
     const user = session?.user;
-    // console.log(user);
 
     const [departureDate, setDepartureDate] = useState(null)
-    // console.log(new Date(departureDate));
-
 
     const { price, _id, destinationName, imageUrl, country } = destination;
-    // console.log(price.toLocaleString(),"typeof" ,typeof(price.toLocaleString()));
-
-    //     const formattedDate = new Date(departureDate).toLocaleDateString('en-US', {
-    //     month: '2-digit',
-    //     day: '2-digit',
-    //     year: 'numeric',
-    // });
 
     const handleBooking = async () => {
         const bookingData = {
@@ -37,10 +27,14 @@ const BookingCard = ({ destination }) => {
         }
         // console.log(bookingData);
         try {
-            const res = await fetch('http://localhost:5000/booking', {
+            const {data:tokenData} = await authClient.token()
+            console.log(tokenData);
+            
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/booking`, {
                 method: 'POST',
                 headers: {
-                    "content-type": "application/json"
+                    "content-type": "application/json",
+                    authorization: `Bearer ${tokenData?.token}`
                 },
                 body: JSON.stringify(bookingData)
             });

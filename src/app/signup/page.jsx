@@ -22,16 +22,12 @@ const SignUpPage = () => {
             password,
             name,
             image,
-        }, {
-            onSuccess: (ctx) => {
-                redirect('/')
-            },
-            onError: (ctx) => {
-                // display the error message
-                toast.error(ctx.error.message);
-            },
+        });
+        if (data) {
+            redirect("/")
+        } else {
+            toast.error(error.message)
         }
-        );
     };
 
     const handleGoogleSignin = async () => {
@@ -158,7 +154,7 @@ const SignUpPage = () => {
 
                 </Form>
                 <Button
-                onClick={handleGoogleSignin}
+                    onClick={handleGoogleSignin}
                     type="button"
                     variant="bordered"
                     className="w-full border border-gray-200 rounded-lg py-3 text-sm text-gray-700 font-medium"

@@ -1,15 +1,31 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import { cancelBooking } from "@/lib/bookings/actions";
 import { AlertDialog, Button } from "@heroui/react"
-// import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 import { MdDelete } from "react-icons/md";
 
 export function BookingCancelAlert({ bookingId }) {
-    // const router = useRouter();
+    const router = useRouter();
 
-    const handleCancelBooking = async () => {
-            await cancelBooking(bookingId);
+    const handleCancelBooking = async (id) => {
+
+        const {data:tokenData} = await authClient.token()
+
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/booking/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${tokenData?.token}`,
+            }
+        });
+        const data = await res.json();
+        if (res.ok) {
+            toast.success("Booking cancelled")
+            router.refresh();
+        }
     };
 
     return (
@@ -40,7 +56,7 @@ export function BookingCancelAlert({ bookingId }) {
                             <Button slot="close" variant="tertiary">
                                 Cancel
                             </Button>
-                            <Button onClick={handleCancelBooking} slot="close" variant="danger">
+                            <Button onClick={()=>handleCancelBooking(bookingId)} slot="close" variant="danger">
                                 Delete Booking
                             </Button>
                         </AlertDialog.Footer>

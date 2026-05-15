@@ -13,13 +13,14 @@ export async function proxy(request) {
     if (!session) {
         return NextResponse.redirect(new URL('/login', request.url))
     }
-
+ return NextResponse.next();
 }
+
  
 // Alternatively, you can use a default export:
 // export default function proxy(request) { ... }
  
 export const config = {
 //   matcher: '/about/:path*',
-  matcher: ['/my-bookings','/add-destination','/destinations/:path*'],
+  matcher: ['/my-bookings','/add-destination','/destinations/:path+'],
 }

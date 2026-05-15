@@ -1,9 +1,20 @@
 import DestinationCard from '@/components/DestinationCard';
+// import { auth } from '@/lib/auth';
+// import { headers } from 'next/headers';
 import React from 'react';
 
 const DestinationPage = async() => {
 
-    const res = await fetch('http://localhost:5000/destination');
+    // const {token} = await auth.api.getToken({
+    //     headers : await headers()
+    // })
+
+    // const res = await fetch('${process.env.NEXT_PUBLIC_SERVER_URL}/destination',{
+    //     headers: {
+    //         authorization: `Bearer ${token}`
+    //     }
+    // });
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/destination`);
     const destinations = await res.json();
     // console.log(destinations);
     
