@@ -42,10 +42,10 @@ const DestinationDetailsPage = async ({ params }) => {
         <div className="min-h-screen max-w-7xl mx-auto bg-white">
 
             {/* Top Bar */}
-            <div className="flex items-center justify-between px-4 py-4 border-b border-gray-100">
+            <div className="flex flex-col md:flex-row items-center justify-between px-4 py-4 border-b border-gray-100">
                 <Link
                     href="/destinations"
-                    className="flex items-center gap-1.5 text-gray-600 hover:text-gray-900 text-sm font-medium transition-colors"
+                    className="flex items-center gap-1.5 text-gray-600 hover:text-gray-900 text-sm font-medium transition-colors mb-4 md:mb-0"
                 >
                     <LuArrowLeft className="text-base" />
                     Back to Destinations
@@ -110,7 +110,7 @@ const DestinationDetailsPage = async ({ params }) => {
                         {description && (
                             <section className="mb-6">
                                 <h2 className="text-xl font-semibold text-gray-900 mb-2">Overview</h2>
-                                <p className="text-gray-600 leading-relaxed">{description}</p>
+                                <p className="text-gray-600 leading-relaxed min-w-2xs md:min-w-3xl">{description}</p>
                             </section>
                         )}
                     </div>
