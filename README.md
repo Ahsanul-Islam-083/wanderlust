@@ -21,7 +21,14 @@ The application leverages the power of **MongoDB** for scalable data management 
 ## 📸 Screenshots
 
 
-<!-- Add your screenshots here -->
+<img width="1916" height="979" alt="image" src="https://github.com/user-attachments/assets/2d04a02f-4a50-462a-bcc3-e6cd972edb4c" />
+<img width="1905" height="978" alt="image" src="https://github.com/user-attachments/assets/b1e4f8a2-7de7-44f9-aa8e-c0aa3f8d5366" />
+<img width="1720" height="978" alt="image" src="https://github.com/user-attachments/assets/48e615a3-be02-4660-bf03-3d54836718cd" />
+<img width="1821" height="977" alt="image" src="https://github.com/user-attachments/assets/df1e798f-2b8a-4457-9b94-d26cb5cda074" />
+<img width="1787" height="979" alt="image" src="https://github.com/user-attachments/assets/fe88a886-cb46-4101-a4c0-137688fcef3e" />
+<img width="1875" height="977" alt="image" src="https://github.com/user-attachments/assets/6a38b583-5137-4c4d-bcd4-80a3876cbafb" />
+
+
 
 
 ---
