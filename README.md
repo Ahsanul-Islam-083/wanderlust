@@ -1,6 +1,6 @@
 # 🌍 Wanderlust - Explore the World, One Destination at a Time ✈️
 
-![Wanderlust Hero](./wanderlust_hero_1778940026474.png)
+
 
 ### 🚀 [Live Demo](https://wanderlust-hazel-five.vercel.app/) | 💻 [Backend Repo](https://github.com/Ahsanul-Islam-083/wanderlust-server)
 
@@ -20,15 +20,9 @@ The application leverages the power of **MongoDB** for scalable data management 
 
 ## 📸 Screenshots
 
-<div align="center">
-  <img src="./wanderlust_preview_cards_1778940105008.png" width="800" alt="Destination Explore Grid">
-  <p><em>Explore breathtaking destinations with our modern grid layout.</em></p>
-</div>
 
-<div align="center">
-  <img src="https://via.placeholder.com/800x450.png?text=User+Profile+Dashboard+Placeholder" width="400" alt="Profile Dashboard">
-  <img src="https://via.placeholder.com/800x450.png?text=Booking+Management+Placeholder" width="400" alt="Booking Management">
-</div>
+<!-- Add your screenshots here -->
+
 
 ---
 
